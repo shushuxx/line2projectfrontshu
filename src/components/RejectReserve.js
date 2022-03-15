@@ -9,9 +9,9 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
-import { ButtonGroup, TextareaAutosize } from "@mui/material";
+import { TextareaAutosize } from "@mui/material";
 
-const ReserveDialog = styled(Dialog)(({ theme }) => ({
+const RejectDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
         padding: theme.spacing(5),
     },
@@ -20,7 +20,7 @@ const ReserveDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-const ReserveDialogTitle = (props) => {
+const RejectDialogTitle = (props) => {
     const { children, onClose, ...other } = props;
 
     return (
@@ -44,12 +44,12 @@ const ReserveDialogTitle = (props) => {
     );
 };
 
-ReserveDialogTitle.propTypes = {
+RejectDialogTitle.propTypes = {
     children: PropTypes.node,
     onClose: PropTypes.func.isRequired,
 };
 
-function ReserveDone() {
+function RejectReserve() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -61,65 +61,54 @@ function ReserveDone() {
 
     return (
         <div>
-            <Button
-                variant="contained"
-                color="success"
-                onClick={handleClickOpen}
-            >
-                예약완료
+            <Button variant="contained" color="error" onClick={handleClickOpen}>
+                예약거절
             </Button>
-            <ReserveDialog
+            <RejectDialog
                 onClose={handleClose}
                 aria-labelledby="dialog__title"
                 open={open}
             >
-                <ReserveDialogTitle id="dialog__title" onClose={handleClose}>
-                    <div>감사합니다 고객님 예약이 확정 되었습니다.</div>
-                </ReserveDialogTitle>
-                <DialogContent dividers>
-                    <div>
-                        <ButtonGroup variant="outlined" color="success">
-                            <Button>쉼터이름</Button>
-                            <Button>쉼터 위치</Button>
-                            <Button>객실이름</Button>
-                            <Button>체크인날짜</Button>
-                            <Button>체크아웃날짜</Button>
-                        </ButtonGroup>
+                <RejectDialogTitle id="dialog__title" onClose={handleClose}>
+                    <div className="reject__title" style={{ color: "red" }}>
+                        정말로 예약을 거절 하시겠습니까?
                     </div>
-                    <br />
-                    <Typography>메시지 전달하기</Typography>
+                </RejectDialogTitle>
+                <DialogContent dividers>
+                    <span
+                        style={{
+                            color: "black",
+                            fontWeight: "bolder",
+                            fontSize: 20,
+                        }}
+                    >
+                        예약을 거절하시는 이유를 적어주시면 게스트에게 메시지가
+                        전송 됩니다.
+                    </span>
                     <div>
+                        <br />
+                        <Typography>메시지 전달하기</Typography>
                         <TextareaAutosize
-                            aria-label="contact__host"
+                            aria-label="dialog__contents"
                             minRows={6}
-                            placeholder="호스트에게 문의 사항이 있다면 500자 내외로 입력 해주세요."
+                            placeholder="500자 내외로 입력 해주세요."
                             style={{ width: 500 }}
                         />
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <div
-                        style={{
-                            color: "grey",
-                            fontWeight: "bolder",
-                            fontSize: 8,
-                            padding: 10,
-                        }}
-                    >
-                        마이페이지에서 세부내역을 확인하세요{" "}
-                    </div>
                     <Button
                         variant="contained"
-                        color="success"
+                        color="error"
                         autoFocus
                         onClick={handleClose}
                     >
-                        마이페이지
+                        거절완료
                     </Button>
                 </DialogActions>
-            </ReserveDialog>
+            </RejectDialog>
         </div>
     );
 }
 
-export default ReserveDone;
+export default RejectReserve;

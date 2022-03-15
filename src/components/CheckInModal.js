@@ -9,9 +9,9 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
-import { ButtonGroup, TextareaAutosize } from "@mui/material";
+import { TextareaAutosize } from "@mui/material";
 
-const ReserveDialog = styled(Dialog)(({ theme }) => ({
+const CheckInDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
         padding: theme.spacing(5),
     },
@@ -20,7 +20,7 @@ const ReserveDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-const ReserveDialogTitle = (props) => {
+const CheckInDialogTitle = (props) => {
     const { children, onClose, ...other } = props;
 
     return (
@@ -44,12 +44,12 @@ const ReserveDialogTitle = (props) => {
     );
 };
 
-ReserveDialogTitle.propTypes = {
+CheckInDialogTitle.propTypes = {
     children: PropTypes.node,
     onClose: PropTypes.func.isRequired,
 };
 
-function ReserveDone() {
+function CheckInModal() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -61,65 +61,53 @@ function ReserveDone() {
 
     return (
         <div>
-            <Button
-                variant="contained"
-                color="success"
-                onClick={handleClickOpen}
-            >
-                예약완료
+            <Button variant="contained" color="info" onClick={handleClickOpen}>
+                체크인
             </Button>
-            <ReserveDialog
+            <CheckInDialog
                 onClose={handleClose}
                 aria-labelledby="dialog__title"
                 open={open}
             >
-                <ReserveDialogTitle id="dialog__title" onClose={handleClose}>
-                    <div>감사합니다 고객님 예약이 확정 되었습니다.</div>
-                </ReserveDialogTitle>
-                <DialogContent dividers>
-                    <div>
-                        <ButtonGroup variant="outlined" color="success">
-                            <Button>쉼터이름</Button>
-                            <Button>쉼터 위치</Button>
-                            <Button>객실이름</Button>
-                            <Button>체크인날짜</Button>
-                            <Button>체크아웃날짜</Button>
-                        </ButtonGroup>
+                <CheckInDialogTitle id="dialog__title" onClose={handleClose}>
+                    <div className="checkIn__message">
+                        게스트가 본인임을 확인 했습니다.
                     </div>
-                    <br />
-                    <Typography>메시지 전달하기</Typography>
+                </CheckInDialogTitle>
+                <DialogContent dividers>
+                    <span
+                        style={{
+                            color: "black",
+                            fontWeight: "bolder",
+                            fontSize: 20,
+                        }}
+                    >
+                        게스트가 객실에 입실 완료했습니다.
+                    </span>
                     <div>
+                        <br />
+                        <Typography>게스트 특이사항</Typography>
                         <TextareaAutosize
-                            aria-label="contact__host"
+                            aria-label="dialog__contents"
                             minRows={6}
-                            placeholder="호스트에게 문의 사항이 있다면 500자 내외로 입력 해주세요."
+                            placeholder="500자 내외로 입력 해주세요."
                             style={{ width: 500 }}
                         />
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <div
-                        style={{
-                            color: "grey",
-                            fontWeight: "bolder",
-                            fontSize: 8,
-                            padding: 10,
-                        }}
-                    >
-                        마이페이지에서 세부내역을 확인하세요{" "}
-                    </div>
                     <Button
                         variant="contained"
-                        color="success"
+                        color="info"
                         autoFocus
                         onClick={handleClose}
                     >
-                        마이페이지
+                        체크인 하기
                     </Button>
                 </DialogActions>
-            </ReserveDialog>
+            </CheckInDialog>
         </div>
     );
 }
 
-export default ReserveDone;
+export default CheckInModal;
