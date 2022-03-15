@@ -1,0 +1,9 @@
+.mainshelter {
+    display: flex;
+    padding: 30px;
+    justify-content: center;
+}
+
+.mainshelter_section{
+    display: flex;
+}
