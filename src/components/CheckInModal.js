@@ -9,7 +9,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
-import { TextareaAutosize } from "@mui/material";
+import ParentForm from "./ParentForm";
 
 const CheckInDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -49,7 +49,7 @@ CheckInDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-function CheckInModal() {
+function CheckInModal(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -86,13 +86,8 @@ function CheckInModal() {
                     </span>
                     <div>
                         <br />
-                        <Typography>게스트 특이사항</Typography>
-                        <TextareaAutosize
-                            aria-label="dialog__contents"
-                            minRows={6}
-                            placeholder="500자 내외로 입력 해주세요."
-                            style={{ width: 500 }}
-                        />
+                <Typography>게스트 특이사항</Typography>
+                    <ParentForm />
                     </div>
                 </DialogContent>
                 <DialogActions>
@@ -106,6 +101,7 @@ function CheckInModal() {
                     </Button>
                 </DialogActions>
             </CheckInDialog>
+            
         </div>
     );
 }

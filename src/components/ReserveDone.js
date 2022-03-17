@@ -9,7 +9,8 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
-import { ButtonGroup, TextareaAutosize } from "@mui/material";
+import { ButtonGroup } from "@mui/material";
+import ParentForm from "./ParentForm";
 
 const ReserveDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -89,12 +90,7 @@ function ReserveDone() {
                     <br />
                     <Typography>메시지 전달하기</Typography>
                     <div>
-                        <TextareaAutosize
-                            aria-label="contact__host"
-                            minRows={6}
-                            placeholder="호스트에게 문의 사항이 있다면 500자 내외로 입력 해주세요."
-                            style={{ width: 500 }}
-                        />
+                        <ParentForm />
                     </div>
                 </DialogContent>
                 <DialogActions>

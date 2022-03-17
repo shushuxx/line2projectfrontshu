@@ -9,9 +9,10 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
-import ParentForm from "./ParentForm";
+import { TextField } from "@mui/material";
 
-const RejectDialog = styled(Dialog)(({ theme }) => ({
+
+const CheckInDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
         padding: theme.spacing(5),
     },
@@ -20,7 +21,7 @@ const RejectDialog = styled(Dialog)(({ theme }) => ({
     },
 }));
 
-const RejectDialogTitle = (props) => {
+const CheckInDialogTitle = (props) => {
     const { children, onClose, ...other } = props;
 
     return (
@@ -44,12 +45,12 @@ const RejectDialogTitle = (props) => {
     );
 };
 
-RejectDialogTitle.propTypes = {
+CheckInDialogTitle.propTypes = {
     children: PropTypes.node,
     onClose: PropTypes.func.isRequired,
 };
 
-function RejectReserve() {
+function CheckInModal(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -61,19 +62,19 @@ function RejectReserve() {
 
     return (
         <div>
-            <Button variant="contained" color="error" onClick={handleClickOpen}>
-                예약거절
+            <Button variant="contained" color="info" onClick={handleClickOpen}>
+                유효성 검사
             </Button>
-            <RejectDialog
+            <CheckInDialog
                 onClose={handleClose}
                 aria-labelledby="dialog__title"
                 open={open}
             >
-                <RejectDialogTitle id="dialog__title" onClose={handleClose}>
-                    <div className="reject__title" style={{ color: "red" }}>
-                        정말로 예약을 거절 하시겠습니까?
+                <CheckInDialogTitle id="dialog__title" onClose={handleClose}>
+                    <div className="checkIn__message">
+                        게스트가 본인임을 확인 했습니다.
                     </div>
-                </RejectDialogTitle>
+                </CheckInDialogTitle>
                 <DialogContent dividers>
                     <span
                         style={{
@@ -82,30 +83,45 @@ function RejectReserve() {
                             fontSize: 20,
                         }}
                     >
-                        예약을 거절하시는 이유를 적어주시면 게스트에게 메시지가
-                        전송 됩니다.
+                        게스트가 객실에 입실 완료했습니다.
                     </span>
                     <div>
                         <br />
-                        <Typography>거절사유 전달하기</Typography>
-                        <ParentForm />
+                        <Typography>게스트 특이사항</Typography>
+
+                        <TextField
+                            id="standard-textarea"
+                            label="Send Message"
+                            placeholder="Some text here"
+                            multiline
+                            variant="filled"
+                            
+                            inputProps={{
+                                maxLength: 255,
+                            }}
+                            InputProps={{
+                                disableUnderline: true,
+                            }}
+                            style={{ 
+                                width: 500 
+                            }}
+                            
+                            />
                     </div>
                 </DialogContent>
-                
-
                 <DialogActions>
                     <Button
                         variant="contained"
-                        color="error"
+                        color="info"
                         autoFocus
                         onClick={handleClose}
                     >
-                        거절완료
+                        체크인 하기
                     </Button>
                 </DialogActions>
-            </RejectDialog>
+            </CheckInDialog>
         </div>
     );
 }
 
-export default RejectReserve;
+export default CheckInModal;
